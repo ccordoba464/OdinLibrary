@@ -1,12 +1,18 @@
 let myLibrary = [];
 let bookContainer = document.getElementById("book-container");
+let addButton = document.getElementById("addButton");
 
 function Book(title, author, numPages, readBook) {
   this.title = title;
   this.author = author;
   this.numPages = numPages;
   this.readBook = readBook;
+  this.index;
 }
+
+Book.prototype.toggleReadStatus = function () {
+  this.readBook = !this.readBook;
+};
 
 function addBookToLibrary(book) {
   myLibrary.push(book);
@@ -17,35 +23,56 @@ function displayBooks() {
     bookContainer.removeChild(bookContainer.firstChild);
   }
 
-  for (let book of myLibrary) {
+  for (let i = 0; i < myLibrary.length; i++) {
+    myLibrary[i].index = i;
     let aBook = document.createElement("div");
     aBook.classList.add("book");
 
-    for (let prop in book) {
-      let aProp = document.createElement("div");
-      aProp.classList.add("prop");
-      aProp.textContent = book[prop];
-      aBook.appendChild(aProp);
+    let desiredProps = ["title", "author", "numPages", "readBook"];
+
+    for (let prop in myLibrary[i]) {
+      if (desiredProps.includes(prop)) {
+        let aProp = document.createElement("div");
+        aProp.classList.add("prop");
+        aProp.textContent = myLibrary[i][prop];
+        aBook.appendChild(aProp);
+      }
     }
 
     let removeButton = document.createElement("button");
     removeButton.textContent = "Remove";
     aBook.appendChild(removeButton);
+
+    removeButton.addEventListener("click", () => {
+      removeBook(myLibrary[i].index);
+    });
+
     let readButton = document.createElement("button");
     readButton.textContent = "Read";
     aBook.appendChild(readButton);
+
+    readButton.addEventListener("click", () => {
+      myLibrary[i].toggleReadStatus();
+      displayBooks();
+    });
 
     bookContainer.appendChild(aBook);
   }
 }
 
-let firstBook = new Book("Music to my ears", "Rimbo", 23, true);
-addBookToLibrary(firstBook);
-addBookToLibrary(firstBook);
-addBookToLibrary(firstBook);
-displayBooks();
+function removeBook(bookIndex) {
+  console.log(bookIndex);
+  myLibrary.splice(bookIndex, 1);
+  displayBooks();
+}
 
-let addButton = document.getElementById("addButton");
+let firstBook = new Book("Music to my ears", "Rimbo", 23, true);
+let secondBook = new Book("Music to my nose", "Rimbo", 23, true);
+let thirdBook = new Book("Music to my eyes", "Rimbo", 23, true);
+addBookToLibrary(firstBook);
+addBookToLibrary(secondBook);
+addBookToLibrary(thirdBook);
+displayBooks();
 
 addButton.addEventListener("click", () => {
   let form = document.createElement("form");
@@ -118,6 +145,8 @@ addButton.addEventListener("click", () => {
     let newBook = new Book(titleInput, authorInput, pagesInput, readInput);
 
     addBookToLibrary(newBook);
+
+    console.log(newBook.index);
     displayBooks();
   });
 });
