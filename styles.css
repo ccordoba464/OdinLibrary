@@ -175,6 +175,13 @@ body {
   justify-self: center;
 }
 
+.book button {
+  background-color: rgb(99, 84, 65);
+  color: white;
+  margin: 10px 20px;
+  border-radius: 8px;
+}
+
 button {
   background-color: rgb(77, 160, 193);
   color: white;

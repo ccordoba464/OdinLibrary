@@ -13,6 +13,10 @@ function addBookToLibrary(book) {
 }
 
 function displayBooks() {
+  while (bookContainer.firstChild) {
+    bookContainer.removeChild(bookContainer.firstChild);
+  }
+
   for (let book of myLibrary) {
     let aBook = document.createElement("div");
     aBook.classList.add("book");
@@ -23,6 +27,13 @@ function displayBooks() {
       aProp.textContent = book[prop];
       aBook.appendChild(aProp);
     }
+
+    let removeButton = document.createElement("button");
+    removeButton.textContent = "Remove";
+    aBook.appendChild(removeButton);
+    let readButton = document.createElement("button");
+    readButton.textContent = "Read";
+    aBook.appendChild(readButton);
 
     bookContainer.appendChild(aBook);
   }
@@ -104,17 +115,9 @@ addButton.addEventListener("click", () => {
     let pagesInput = document.getElementById("numPages").value;
     let readInput = document.getElementById("readBook").checked;
 
-    let book = new Book(titleInput, authorInput, pagesInput, readInput);
-    let newBook = document.createElement("div");
-    newBook.classList.add("book");
-    for (let prop in book) {
-      let aProp = document.createElement("div");
-      aProp.classList.add("prop");
-      aProp.textContent = book[prop];
-      newBook.appendChild(aProp);
-    }
-    bookContainer.appendChild(newBook);
+    let newBook = new Book(titleInput, authorInput, pagesInput, readInput);
 
-    bookContainer.removeChild(form);
+    addBookToLibrary(newBook);
+    displayBooks();
   });
 });
