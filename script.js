@@ -1,4 +1,5 @@
 let myLibrary = [];
+let bookContainer = document.getElementById("book-container");
 
 function Book(title, author, numPages, readBook) {
   this.title = title;
@@ -12,8 +13,6 @@ function addBookToLibrary(book) {
 }
 
 function displayBooks() {
-  let books = document.getElementById("book-container");
-
   for (let book of myLibrary) {
     let aBook = document.createElement("div");
     aBook.classList.add("book");
@@ -25,7 +24,7 @@ function displayBooks() {
       aBook.appendChild(aProp);
     }
 
-    books.appendChild(aBook);
+    bookContainer.appendChild(aBook);
   }
 }
 
@@ -38,7 +37,6 @@ displayBooks();
 let addButton = document.getElementById("addButton");
 
 addButton.addEventListener("click", () => {
-  let container = document.getElementById("book-container");
   let form = document.createElement("form");
   let input1 = document.createElement("input");
   let label1 = document.createElement("label");
@@ -96,7 +94,7 @@ addButton.addEventListener("click", () => {
   form.appendChild(input4);
   form.appendChild(submitButton);
 
-  container.appendChild(form);
+  bookContainer.appendChild(form);
 
   submitButton.addEventListener("click", () => {
     event.preventDefault();
@@ -115,8 +113,8 @@ addButton.addEventListener("click", () => {
       aProp.textContent = book[prop];
       newBook.appendChild(aProp);
     }
-    container.appendChild(newBook);
+    bookContainer.appendChild(newBook);
 
-    container.removeChild(form);
+    bookContainer.removeChild(form);
   });
 });
