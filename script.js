@@ -12,22 +12,24 @@ function addBookToLibrary(book) {
 }
 
 function displayBooks() {
-  let library = document.getElementById("library");
+  let books = document.getElementById("book-container");
 
   for (let book of myLibrary) {
-    let tr = document.createElement("tr");
+    let aBook = document.createElement("div");
+    aBook.classList.add("book");
 
     for (let prop in book) {
-      let td = document.createElement("td");
-      td.textContent = book[prop];
-      tr.appendChild(td);
+      let aProp = document.createElement("div");
+      aProp.classList.add("prop");
+      aProp.textContent = book[prop];
+      aBook.appendChild(aProp);
     }
 
-    library.appendChild(tr);
+    books.appendChild(aBook);
   }
 }
 
-let firstBook = new Book("Music", "Rimbo", 23, true);
+let firstBook = new Book("Music to my ears", "Rimbo", 23, true);
 addBookToLibrary(firstBook);
 addBookToLibrary(firstBook);
 addBookToLibrary(firstBook);
@@ -36,7 +38,7 @@ displayBooks();
 let addButton = document.getElementById("addButton");
 
 addButton.addEventListener("click", () => {
-  let container = document.querySelector(".container");
+  let container = document.getElementById("book-container");
   let form = document.createElement("form");
   let input1 = document.createElement("input");
   let label1 = document.createElement("label");
@@ -49,7 +51,7 @@ addButton.addEventListener("click", () => {
   let submitButton = document.createElement("button");
 
   label1.for = "title";
-  label1.textContent = "Enter title:";
+  label1.textContent = "Title:";
 
   input1.type = "text";
   input1.name = "title";
@@ -57,7 +59,7 @@ addButton.addEventListener("click", () => {
   input1.placeholder = "Title";
 
   label2.for = "author";
-  label2.textContent = "Enter author:";
+  label2.textContent = "Author:";
 
   input2.type = "text";
   input2.name = "author";
@@ -65,7 +67,7 @@ addButton.addEventListener("click", () => {
   input2.placeholder = "Author";
 
   label3.for = "numPages";
-  label3.textContent = "Enter number of pages:";
+  label3.textContent = "# of pages:";
 
   input3.type = "text";
   input3.name = "numPages";
@@ -105,13 +107,15 @@ addButton.addEventListener("click", () => {
     let readInput = document.getElementById("readBook").checked;
 
     let book = new Book(titleInput, authorInput, pagesInput, readInput);
-    let tr = document.createElement("tr");
+    let newBook = document.createElement("div");
+    newBook.classList.add("book");
     for (let prop in book) {
-      let td = document.createElement("td");
-      td.textContent = book[prop];
-      tr.appendChild(td);
+      let aProp = document.createElement("div");
+      aProp.classList.add("prop");
+      aProp.textContent = book[prop];
+      newBook.appendChild(aProp);
     }
-    library.appendChild(tr);
+    container.appendChild(newBook);
 
     container.removeChild(form);
   });
