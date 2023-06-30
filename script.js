@@ -12,7 +12,7 @@ class Book {
   }
 
   set title(value) {
-    if (value.length > 20 || value.length < 0) {
+    if (value.length > 20) {
       return;
     }
     this._title = value;
@@ -23,7 +23,7 @@ class Book {
   }
 
   set author(value) {
-    if (value.length > 20 || value.length < 0) {
+    if (value.length > 20) {
       return;
     }
     this._author = value;
@@ -34,7 +34,7 @@ class Book {
   }
 
   set numPages(value) {
-    if (value.length > 20 || value.length < 0) {
+    if (value < 1) {
       return;
     }
     this._numPages = value;
@@ -47,23 +47,7 @@ class Book {
   set readBook(value) {
     this._readBook = value;
   }
-
-  toggleReadStatus() {
-    this._readBook = !this._readBook;
-  }
 }
-
-// function Book(title, author, numPages, readBook) {
-//   this.title = title;
-//   this.author = author;
-//   this.numPages = numPages;
-//   this.readBook = readBook;
-//   this.index;
-// }
-
-// Book.prototype.toggleReadStatus = function () {
-//   this.readBook = !this.readBook;
-// };
 
 class library {
   constructor() {
@@ -86,7 +70,7 @@ class library {
       let aBook = document.createElement("div");
       aBook.classList.add("book");
 
-      let desiredProps = ["title", "author", "numPages", "readBook"];
+      let desiredProps = ["_title", "_author", "_numPages", "_readBook"];
 
       for (let prop in this.myLibrary[i]) {
         if (desiredProps.includes(prop)) {
@@ -102,7 +86,7 @@ class library {
       aBook.appendChild(removeButton);
 
       removeButton.addEventListener("click", () => {
-        removeBook(this.myLibrary[i].index);
+        this.removeBook(this.myLibrary[i].index);
       });
 
       let readButton = document.createElement("button");
@@ -111,7 +95,7 @@ class library {
 
       readButton.addEventListener("click", () => {
         this.myLibrary[i].readBook = !this.myLibrary[i].readBook;
-        displayBooks();
+        this.displayBooks();
       });
 
       this.bookContainer.appendChild(aBook);
@@ -121,7 +105,7 @@ class library {
   removeBook(bookIndex) {
     console.log(bookIndex);
     this.myLibrary.splice(bookIndex, 1);
-    displayBooks();
+    this.displayBooks();
   }
 
   addForm() {
@@ -195,20 +179,22 @@ class library {
 
         let newBook = new Book(titleInput, authorInput, pagesInput, readInput);
 
-        addBookToLibrary(newBook);
+        this.addBookToLibrary(newBook);
 
         console.log(newBook.index);
-        displayBooks();
+        this.displayBooks();
       });
     });
   }
 }
 
 const myLibrary = new library();
+
 let firstBook = new Book("Music to my ears", "Rimbo", 23, true);
 let secondBook = new Book("Music to my nose", "Rimbo", 23, true);
 let thirdBook = new Book("Music to my eyes", "Rimbo", 23, true);
 
+myLibrary.addForm();
 myLibrary.addBookToLibrary(firstBook);
 myLibrary.addBookToLibrary(secondBook);
 myLibrary.addBookToLibrary(thirdBook);
