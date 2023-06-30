@@ -1,7 +1,3 @@
-let myLibrary = [];
-let bookContainer = document.getElementById("book-container");
-let addButton = document.getElementById("addButton");
-
 class Book {
   constructor(title, author, numPages, readBook) {
     this.title = title;
@@ -19,103 +15,165 @@ class Book {
     if (value.length > 20 || value.length < 0) {
       return;
     }
-    this._name = value;
+    this._title = value;
   }
 
   get author() {
-    return this._title;
+    return this._author;
   }
 
   set author(value) {
     if (value.length > 20 || value.length < 0) {
       return;
     }
-    this._name = value;
+    this._author = value;
   }
 
   get numPages() {
-    return this._title;
+    return this._numPages;
   }
 
   set numPages(value) {
     if (value.length > 20 || value.length < 0) {
       return;
     }
-    this._name = value;
+    this._numPages = value;
   }
 
   get readBook() {
-    return this._title;
+    return this._readBook;
   }
 
   set readBook(value) {
-    this._name = value;
+    this._readBook = value;
+  }
+
+  toggleReadStatus() {
+    this._readBook = !this._readBook;
   }
 }
 
-function Book(title, author, numPages, readBook) {
-  this.title = title;
-  this.author = author;
-  this.numPages = numPages;
-  this.readBook = readBook;
-  this.index;
-}
+// function Book(title, author, numPages, readBook) {
+//   this.title = title;
+//   this.author = author;
+//   this.numPages = numPages;
+//   this.readBook = readBook;
+//   this.index;
+// }
 
-Book.prototype.toggleReadStatus = function () {
-  this.readBook = !this.readBook;
-};
+// Book.prototype.toggleReadStatus = function () {
+//   this.readBook = !this.readBook;
+// };
 
-function addBookToLibrary(book) {
-  myLibrary.push(book);
-}
+class library {
+  myLibrary = [];
+  bookContainer = document.getElementById("book-container");
+  addButton = document.getElementById("addButton");
 
-function displayBooks() {
-  while (bookContainer.firstChild) {
-    bookContainer.removeChild(bookContainer.firstChild);
+  addBookToLibrary(book) {
+    myLibrary.push(book);
   }
 
-  for (let i = 0; i < myLibrary.length; i++) {
-    myLibrary[i].index = i;
-    let aBook = document.createElement("div");
-    aBook.classList.add("book");
-
-    let desiredProps = ["title", "author", "numPages", "readBook"];
-
-    for (let prop in myLibrary[i]) {
-      if (desiredProps.includes(prop)) {
-        let aProp = document.createElement("div");
-        aProp.classList.add("prop");
-        aProp.textContent = myLibrary[i][prop];
-        aBook.appendChild(aProp);
-      }
+  displayBooks() {
+    while (bookContainer.firstChild) {
+      bookContainer.removeChild(bookContainer.firstChild);
     }
 
-    let removeButton = document.createElement("button");
-    removeButton.textContent = "Remove";
-    aBook.appendChild(removeButton);
+    for (let i = 0; i < myLibrary.length; i++) {
+      myLibrary[i].index = i;
+      let aBook = document.createElement("div");
+      aBook.classList.add("book");
 
-    removeButton.addEventListener("click", () => {
-      removeBook(myLibrary[i].index);
-    });
+      let desiredProps = ["title", "author", "numPages", "readBook"];
 
-    let readButton = document.createElement("button");
-    readButton.textContent = "Read";
-    aBook.appendChild(readButton);
+      for (let prop in myLibrary[i]) {
+        if (desiredProps.includes(prop)) {
+          let aProp = document.createElement("div");
+          aProp.classList.add("prop");
+          aProp.textContent = myLibrary[i][prop];
+          aBook.appendChild(aProp);
+        }
+      }
 
-    readButton.addEventListener("click", () => {
-      myLibrary[i].toggleReadStatus();
-      displayBooks();
-    });
+      let removeButton = document.createElement("button");
+      removeButton.textContent = "Remove";
+      aBook.appendChild(removeButton);
 
-    bookContainer.appendChild(aBook);
+      removeButton.addEventListener("click", () => {
+        removeBook(myLibrary[i].index);
+      });
+
+      let readButton = document.createElement("button");
+      readButton.textContent = "Read";
+      aBook.appendChild(readButton);
+
+      readButton.addEventListener("click", () => {
+        myLibrary[i].readBook = !myLibrary[i].readBook;
+        displayBooks();
+      });
+
+      bookContainer.appendChild(aBook);
+    }
+  }
+
+  removeBook(bookIndex) {
+    console.log(bookIndex);
+    myLibrary.splice(bookIndex, 1);
+    displayBooks();
   }
 }
 
-function removeBook(bookIndex) {
-  console.log(bookIndex);
-  myLibrary.splice(bookIndex, 1);
-  displayBooks();
-}
+// addBookToLibrary(book) {
+//   myLibrary.push(book);
+// }
+
+// function displayBooks() {
+//   while (bookContainer.firstChild) {
+//     bookContainer.removeChild(bookContainer.firstChild);
+//   }
+
+//   for (let i = 0; i < myLibrary.length; i++) {
+//     myLibrary[i].index = i;
+//     let aBook = document.createElement("div");
+//     aBook.classList.add("book");
+
+//     let desiredProps = ["title", "author", "numPages", "readBook"];
+
+//     for (let prop in myLibrary[i]) {
+//       if (desiredProps.includes(prop)) {
+//         let aProp = document.createElement("div");
+//         aProp.classList.add("prop");
+//         aProp.textContent = myLibrary[i][prop];
+//         aBook.appendChild(aProp);
+//       }
+//     }
+
+//     let removeButton = document.createElement("button");
+//     removeButton.textContent = "Remove";
+//     aBook.appendChild(removeButton);
+
+//     removeButton.addEventListener("click", () => {
+//       removeBook(myLibrary[i].index);
+//     });
+
+//     let readButton = document.createElement("button");
+//     readButton.textContent = "Read";
+//     aBook.appendChild(readButton);
+
+//     readButton.addEventListener("click", () => {
+//       myLibrary[i].readBook = !myLibrary[i].readBook;
+//       displayBooks();
+//     });
+
+//     bookContainer.appendChild(aBook);
+//   }
+// }
+
+// function removeBook(bookIndex) {
+//   console.log(bookIndex);
+//   myLibrary.splice(bookIndex, 1);
+//   displayBooks();
+// }
 
 let firstBook = new Book("Music to my ears", "Rimbo", 23, true);
 let secondBook = new Book("Music to my nose", "Rimbo", 23, true);
