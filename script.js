@@ -2,6 +2,57 @@ let myLibrary = [];
 let bookContainer = document.getElementById("book-container");
 let addButton = document.getElementById("addButton");
 
+class Book {
+  constructor(title, author, numPages, readBook) {
+    this.title = title;
+    this.author = author;
+    this.numPages = numPages;
+    this.readBook = readBook;
+    this.index;
+  }
+
+  get title() {
+    return this._title;
+  }
+
+  set title(value) {
+    if (value.length > 20 || value.length < 0) {
+      return;
+    }
+    this._name = value;
+  }
+
+  get author() {
+    return this._title;
+  }
+
+  set author(value) {
+    if (value.length > 20 || value.length < 0) {
+      return;
+    }
+    this._name = value;
+  }
+
+  get numPages() {
+    return this._title;
+  }
+
+  set numPages(value) {
+    if (value.length > 20 || value.length < 0) {
+      return;
+    }
+    this._name = value;
+  }
+
+  get readBook() {
+    return this._title;
+  }
+
+  set readBook(value) {
+    this._name = value;
+  }
+}
+
 function Book(title, author, numPages, readBook) {
   this.title = title;
   this.author = author;
