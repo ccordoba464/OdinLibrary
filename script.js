@@ -112,61 +112,67 @@ class library {
   addForm() {
     this.addButton.addEventListener("click", () => {
       let form = document.createElement("form");
-      let input1 = document.createElement("input");
-      let label1 = document.createElement("label");
-      let input2 = document.createElement("input");
-      let label2 = document.createElement("label");
-      let input3 = document.createElement("input");
-      let label3 = document.createElement("label");
-      let input4 = document.createElement("input");
-      let label4 = document.createElement("label");
-      let submitButton = document.createElement("button");
 
+      let label1 = document.createElement("label");
       label1.for = "title";
       label1.textContent = "Title:";
 
+      let input1 = document.createElement("input");
       input1.type = "text";
       input1.name = "title";
       input1.id = "title";
       input1.placeholder = "Title";
+      input1.minLength = 1;
 
+      let label2 = document.createElement("label");
       label2.for = "author";
       label2.textContent = "Author:";
 
+      let input2 = document.createElement("input");
       input2.type = "text";
       input2.name = "author";
       input2.id = "author";
       input2.placeholder = "Author";
+      input2.minLength = 1;
 
+      let label3 = document.createElement("label");
       label3.for = "numPages";
       label3.textContent = "# of pages:";
 
+      let input3 = document.createElement("input");
       input3.type = "text";
       input3.name = "numPages";
       input3.id = "numPages";
       input3.placeholder = "Number of Pages";
+      input3.minLength = 1;
 
+      let label4 = document.createElement("label");
       label4.for = "readBook";
       label4.textContent = "Read?";
 
+      let input4 = document.createElement("input");
       input4.type = "checkbox";
       input4.name = "readBook";
       input4.id = "readBook";
+      input4.min = 1;
 
+      let submitButton = document.createElement("button");
       submitButton.type = submitButton;
       submitButton.textContent = "Submit Book";
       submitButton.style.gridColumn = "1 / 3";
       submitButton.id = submitButton;
 
-      form.appendChild(label1);
-      form.appendChild(input1);
-      form.appendChild(label2);
-      form.appendChild(input2);
-      form.appendChild(label3);
-      form.appendChild(input3);
-      form.appendChild(label4);
-      form.appendChild(input4);
-      form.appendChild(submitButton);
+      form.append(
+        label1,
+        input1,
+        label2,
+        input2,
+        label3,
+        input3,
+        label4,
+        input4,
+        submitButton
+      );
 
       this.bookContainer.appendChild(form);
 
