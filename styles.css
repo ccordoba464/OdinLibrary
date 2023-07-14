@@ -214,6 +214,33 @@ input[type="text"] {
   margin: 0 10px;
 }
 
+input[type="text"]:invalid {
+  background-color: rgba(208, 19, 19, 0.5);
+  padding: 6px;
+  border: 1px solid black;
+  border-radius: 8px;
+  height: 30%;
+  margin: 0 10px;
+}
+
+input[type="number"] {
+  background-color: rgb(156, 151, 151, 0.5);
+  padding: 6px;
+  border: 1px solid black;
+  border-radius: 8px;
+  height: 30%;
+  margin: 0 10px;
+}
+
+input[type="number"]:invalid {
+  background-color: rgba(208, 19, 19, 0.5);
+  padding: 6px;
+  border: 1px solid black;
+  border-radius: 8px;
+  height: 30%;
+  margin: 0 10px;
+}
+
 input[type="checkbox"] {
   background-color: rgb(156, 151, 151, 0.5);
 

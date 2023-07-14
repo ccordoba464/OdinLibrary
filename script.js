@@ -104,7 +104,6 @@ class library {
   }
 
   removeBook(bookIndex) {
-    console.log(bookIndex);
     this.myLibrary.splice(bookIndex, 1);
     this.displayBooks();
   }
@@ -122,7 +121,7 @@ class library {
       input1.name = "title";
       input1.id = "title";
       input1.placeholder = "Title";
-      input1.minLength = 1;
+      input1.minLength = 2;
 
       let label2 = document.createElement("label");
       label2.for = "author";
@@ -133,18 +132,18 @@ class library {
       input2.name = "author";
       input2.id = "author";
       input2.placeholder = "Author";
-      input2.minLength = 1;
+      input2.minLength = 2;
 
       let label3 = document.createElement("label");
       label3.for = "numPages";
       label3.textContent = "# of pages:";
 
       let input3 = document.createElement("input");
-      input3.type = "text";
+      input3.type = "number";
       input3.name = "numPages";
       input3.id = "numPages";
       input3.placeholder = "Number of Pages";
-      input3.minLength = 1;
+      input3.min = 1;
 
       let label4 = document.createElement("label");
       label4.for = "readBook";
@@ -154,10 +153,9 @@ class library {
       input4.type = "checkbox";
       input4.name = "readBook";
       input4.id = "readBook";
-      input4.min = 1;
 
       let submitButton = document.createElement("button");
-      submitButton.type = submitButton;
+      submitButton.type = "submit";
       submitButton.textContent = "Submit Book";
       submitButton.style.gridColumn = "1 / 3";
       submitButton.id = submitButton;
@@ -176,19 +174,26 @@ class library {
 
       this.bookContainer.appendChild(form);
 
-      submitButton.addEventListener("click", () => {
+      form.addEventListener("submit", event => {
         event.preventDefault();
 
-        let titleInput = document.getElementById("title").value;
-        let authorInput = document.getElementById("author").value;
-        let pagesInput = document.getElementById("numPages").value;
-        let readInput = document.getElementById("readBook").checked;
+        if (
+          !input1.validity.valid ||
+          !input2.validity.valid ||
+          !input3.validity.valid
+        ) {
+          return; // Stop execution if any of the inputs are invalid
+        }
+
+        let titleInput = input1.value;
+        let authorInput = input2.value;
+        let pagesInput = input3.value;
+        let readInput = input4.checked;
 
         let newBook = new Book(titleInput, authorInput, pagesInput, readInput);
 
         this.addBookToLibrary(newBook);
 
-        console.log(newBook.index);
         this.displayBooks();
       });
     });
@@ -197,11 +202,11 @@ class library {
 
 const myLibrary = new library();
 
-let firstBook = new Book("Music to my ears", "Rimbo", 23, true);
-let secondBook = new Book("Music to my nose", "Rimbo", 23, true);
-let thirdBook = new Book("Music to my eyes", "Rimbo", 23, true);
+// let firstBook = new Book("Music to my ears", "Rimbo", 23, true);
+// let secondBook = new Book("Music to my nose", "Rimbo", 23, true);
+// let thirdBook = new Book("Music to my eyes", "Rimbo", 23, true);
 
-myLibrary.addBookToLibrary(firstBook);
-myLibrary.addBookToLibrary(secondBook);
-myLibrary.addBookToLibrary(thirdBook);
+// myLibrary.addBookToLibrary(firstBook);
+// myLibrary.addBookToLibrary(secondBook);
+// myLibrary.addBookToLibrary(thirdBook);
 myLibrary.displayBooks();
